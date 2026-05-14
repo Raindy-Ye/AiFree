@@ -1,35 +1,36 @@
+**Languages: [English](README.md), [中文](README_ZH.md).**
 # AiFree
-**`AiFree`** 旨在为OpenClaw提供免费的AI模型。适合轻度使用OpenClaw的个人用户
+**`AiFree`** is designed to provide free AI models for OpenClaw. It is suitable for individual users who use OpenClaw lightly.
 
-## 原理
-通过代理将OpenClaw发送给AI模型的请求转发到免费的AI模型Web版，如:https://chat.deepseek.com/  
-然后将Web回复转换成OpenAI兼容的格式返回给OpenClaw.
+## How it works
+The tool works by proxying requests sent from OpenClaw to AI models and forwarding them to free web-based AI models, such as: https://chat.deepseek.com/.
+It then converts the web response into an OpenAI-compatible format and sent it to OpenClaw.
 
-## 构建和运行环境
+## Build and Runtime Requirements
 - java25
-- Edge 或 Chrome 浏览器。理论其它浏览器也可以，但没测试过。
+- Edge or Chrome browser. Other browsers might work in theory, but they haven't been tested.
 - gradle
 
-## 使用方法
-### 启动服务
-- 如果你下载的是原码，可以直接在项目的根目录下执行命令：`./gradlew run --args="-port=8080 -P:model=DeepSeek"`
-- 如果你运行的是jar包，可以执行命令: `java -jar AiFree-all.jar -port=8080 -P:model=DeepSeek`
-### 参数说明
-- `-port`服务端口，默认为`8080`
-- `-P:model` AI 模型。目前仅支持`DeepSeek`
-- `-P:auto_download_browser`是否自动下载浏览器, 默认为`false`。代理过程需要使用浏览器，默认依次尝试优先使用本地的`Edge`、`Chrome`、`webkit`。
-- `-P:browser_path` 明确指定要使用的浏览器路径。默认为空。
-- `-P:persistent_context`是否保存代理浏览器的session数据，如 cookies 和 local storage。默认为`true`。多数Web版的AI模型都需要用户登录，如果保存session数据，可以避免每次重启服务后都需要登录。
-- `-P:context_data_dir`指定代理浏览器session数据的保存目录。默认为为`~/.AiFree/context_data`
-- `-P:headless`代理浏览器是否以headless模式(不可见)，默认为`false`。
+## Usage
+### Starting the Service
+- If you have downloaded the source code, navigate to the project's root directory and execute the command:`./gradlew run --args="-port=8080 -P:model=DeepSeek"`
+- If you are running the jar package, execute the command: `java -jar AiFree-all.jar -port=8080 -P:model=DeepSeek`
+### Parameters
+- `-port`The service port. Default is`8080`
+- `-P:model`The AI model to use. Currently, only DeepSeek is supported.`DeepSeek`
+- `-P:auto_download_browser`Whether to automatically download a browser. Default is `false`。The proxy process requires a browser and will by default try to use the local `Edge`、`Chrome`、`webkit`。
+- `-P:browser_path` Explicitly specify the path to the browser you want to use.
+- `-P:persistent_context` Whether to save session data (such as cookies and local storage) for the proxy browser. Default is`true`。Most web-based AI models require user login, so saving session data can prevent the need to log in again after each service restart.
+- `-P:context_data_dir`Specify the directory where the proxy browser's session data will be saved. Default is`~/.AiFree/context_data`
+- `-P:headless` Whether the proxy browser should run in headless mode (invisible). Default is`false`.
 
-### 配置 OpenClaw
-#### 使用命令行配置
-1. 通过命令`openclaw config get models.providers`找到你要代理的模型提供商
-2. 假设是`ollama`，然后通过命令`openclaw config set models.providers.ollama.baseUrl "http://127.0.0.1:8080/aifree"` (注意你代理服务配置的端口号)
-#### 直接编辑配置文件
-- 可以直接编辑OpenClaw的配置文件，默认在用户目录下： `~/.openclaw/openclaw.json`
+### Configuring OpenClaw
+#### Configure via Command Line
+1. Use the command to find the model provider you wish to proxy: `openclaw config get models.providers`
+2. For example, to proxy the provider `ollama`, you can run the command to update the configuration: `openclaw config set models.providers.ollama.baseUrl "http://127.0.0.1:8080/aifree"`
+#### Or edit the Configuration File
+- You can directly edit the OpenClaw configuration file, which is located by default in the user's home directory:`~/.openclaw/openclaw.json`
 
-### 🔥 重要提示
-- 代理只能在提供商层级，既某个提供商被代理后，提供商下配置的所有模型都会走代理。
-- 配置的 Web 版 AI 如果需要登录，在代理浏览器打开页面后，你需要手动登录。如果你以允许保存代理浏览器的session数据，重启服务后可能不需要登录。
+### 🔥 Important Notes
+- proxy only works at the provider level. This means that once a specific provider is proxied, all models configured under that provider will use the proxy.
+- If the configured web-based AI requires login, you will need to manually log in after the proxy browser opens the page. If you have allowed saving the proxy browser's session data, you likely won't need to log in again after restarting the service.
