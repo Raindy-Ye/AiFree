@@ -17,7 +17,7 @@ It then converts the web response into an OpenAI-compatible format and sent it t
 - If you are running the jar package, execute the command: `java -jar AiFree-all.jar -port=8080 -P:model=DeepSeek`
 ### Parameters
 - `-port`The service port. Default is`8080`
-- `-P:model`The AI model to use. Currently, only DeepSeek is supported.`DeepSeek`
+- `-P:model`The AI model to use. Currently, supported model includes:`DeepSeek`、`WenXinYiYan`
 - `-P:auto_download_browser`Whether to automatically download a browser. Default is `false`。The proxy process requires a browser and will by default try to use the local `Edge`、`Chrome`、`webkit`。
 - `-P:browser_path` Explicitly specify the path to the browser you want to use.
 - `-P:persistent_context` Whether to save session data (such as cookies and local storage) for the proxy browser. Default is`true`。Most web-based AI models require user login, so saving session data can prevent the need to log in again after each service restart.

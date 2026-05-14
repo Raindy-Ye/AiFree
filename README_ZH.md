@@ -17,7 +17,7 @@
 - 如果你运行的是jar包，可以执行命令: `java -jar AiFree-all.jar -port=8080 -P:model=DeepSeek`
 ### 参数说明
 - `-port`服务端口，默认为`8080`
-- `-P:model` AI 模型。目前仅支持`DeepSeek`
+- `-P:model` AI 模型。目前支持`DeepSeek`、`WenXinYiYan`
 - `-P:auto_download_browser`是否自动下载浏览器, 默认为`false`。代理过程需要使用浏览器，默认依次尝试优先使用本地的`Edge`、`Chrome`、`webkit`。
 - `-P:browser_path` 明确指定要使用的浏览器路径。默认为空。
 - `-P:persistent_context`是否保存代理浏览器的session数据，如 cookies 和 local storage。默认为`true`。多数Web版的AI模型都需要用户登录，如果保存session数据，可以避免每次重启服务后都需要登录。
