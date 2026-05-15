@@ -7,7 +7,7 @@ interface AiModel {
         append("}}]}\n")
     }
     fun buildReasoningContent(text: String, role: String?): String = buildString {
-        append("""data: {"choices":[{"reasoning_content":"$text"""")
+        append("""data: {"choices":[{"delta":{"reasoning_content":"$text"""")
         if (role != null) append(""","role":"$role"""")
         append("}}]}\n")
     }
