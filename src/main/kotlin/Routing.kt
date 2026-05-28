@@ -9,11 +9,6 @@ import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 
 private val logger = logger("routing")
-private const val outputPrompt = """
-##回复规则
-如果需要调用工具，要将调用工具的方式严格按照下面的格式附加到回复中：fcs <name><jsonArgs>fce
-示例: fcs browser{\"action\": \"open\"}fce
-"""
 
 data class ChatRequest(
     @SerializedName("messages") val messages: List<Message>
@@ -37,7 +32,7 @@ fun Application.configureProxyRouting(aiModel: AiModel) {
                     """.trimIndent()
                 }
                 try {
-                    val answer = aiModel.chat("$requestBody\n$outputPrompt")
+                    val answer = aiModel.chat(requestBody)
                     logger.debug {"""
                         ----------------------------------------------------------response body----------------------------------------------------------
                         $answer
