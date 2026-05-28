@@ -37,6 +37,7 @@ fun Application.module() {
     val aiModel = when (aiModelName) {
         "DeepSeek" -> DeepSeek(cfg)
         "WenXinYiYan" -> WenXinYiYan(cfg)
+        "QianWen" -> QianWen(cfg)
         else -> throw NotImplementedError("The AI Model [$aiModelName] is not supported! Currently only DeepSeek is supported")
     }
     configureProxyRouting(aiModel)
