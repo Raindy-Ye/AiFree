@@ -19,6 +19,7 @@ class WenXinYiYan(config: Config) : AiModel(config) {
     }
 
     override fun sentMessage(message: String) {
+        page.keyboard().press("Control+K")// New conversation
         page.getByRole(AriaRole.TEXTBOX).fill(message)
         page.keyboard().press("Enter")
     }

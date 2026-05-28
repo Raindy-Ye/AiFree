@@ -16,6 +16,7 @@ class DeepSeek(config: Config) : AiModel(config) {
     }
 
     override fun sentMessage(message: String) {
+        page.keyboard().press("Control+J")  // New conversation
         page.fill("textarea", message)
         page.keyboard().press("Enter")
         // Wait for the response
